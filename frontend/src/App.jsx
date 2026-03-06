@@ -12,29 +12,26 @@ import Verification from './pages/Verification/Verification';
 function App() {
   return (
     <BrowserRouter>
-      <div className="flex h-screen overflow-hidden">
+      <div className="flex h-screen bg-background overflow-hidden text-textMain font-sans">
         {/* Sidebar */}
         <Sidebar className="w-64 flex-shrink-0" />
 
         {/* Main Content Area */}
-        <div className="flex-1 flex flex-col overflow-hidden relative">
-
-          {/* Animated Background Elements */}
-          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-electricBlue/20 rounded-full blur-[120px] -z-10 mix-blend-screen animate-pulse-slow"></div>
-          <div className="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-neonCyan/10 rounded-full blur-[100px] -z-10 mix-blend-screen animate-pulse-slow" style={{ animationDelay: '1.5s' }}></div>
-
+        <div className="flex-1 flex flex-col overflow-hidden">
           <Navbar />
 
           {/* Main Viewport */}
-          <main className="flex-1 overflow-x-hidden overflow-y-auto bg-transparent p-6 relative z-10">
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/vehicles" element={<VehicleManagement />} />
-              <Route path="/owners" element={<OwnerManagement />} />
-              <Route path="/insurance" element={<InsuranceManagement />} />
-              <Route path="/link" element={<LinkManagement />} />
-              <Route path="/verify" element={<Verification />} />
-            </Routes>
+          <main className="flex-1 overflow-x-hidden overflow-y-auto bg-background p-8">
+            <div className="max-w-7xl mx-auto">
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/vehicles" element={<VehicleManagement />} />
+                <Route path="/owners" element={<OwnerManagement />} />
+                <Route path="/insurance" element={<InsuranceManagement />} />
+                <Route path="/link" element={<LinkManagement />} />
+                <Route path="/verify" element={<Verification />} />
+              </Routes>
+            </div>
           </main>
         </div>
       </div>

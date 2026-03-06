@@ -7,22 +7,20 @@ export default {
     theme: {
         extend: {
             colors: {
-                darkBg: '#050B14',
-                deepBlue: '#0A192F',
-                electricBlue: '#0052FF',
-                neonCyan: '#00F0FF',
-                glassBg: 'rgba(10, 25, 47, 0.6)',
-                glassBorder: 'rgba(0, 240, 255, 0.2)'
+                background: '#0B0F19',
+                card: '#111827',
+                cardBorder: '#1F2937',
+                primary: '#4F46E5', // Indigo 600
+                primaryHover: '#4338CA', // Indigo 700
+                accent: '#10B981', // Emerald 500
+                textMain: '#F9FAFB',
+                textMuted: '#9CA3AF'
             },
-            backgroundImage: {
-                'dark-gradient': 'linear-gradient(135deg, #02050A 0%, #0A192F 100%)',
+            fontFamily: {
+                sans: ['Inter', 'system-ui', 'sans-serif'],
             },
             boxShadow: {
-                'neon': '0 0 15px rgba(0, 240, 255, 0.4), 0 0 30px rgba(0, 82, 255, 0.2)',
-                'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
-            },
-            animation: {
-                'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
             }
         },
     },

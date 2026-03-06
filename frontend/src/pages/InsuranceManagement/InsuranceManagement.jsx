@@ -34,90 +34,115 @@ const InsuranceManagement = () => {
 
     return (
         <div className="space-y-6">
-            <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">Policy Contracts</h2>
+            <div className="flex justify-between items-center bg-card p-6 rounded-xl border border-cardBorder">
+                <div>
+                    <h2 className="text-2xl font-bold text-textMain tracking-tight">Insurance Policies</h2>
+                    <p className="text-textMuted text-sm mt-1">Manage coverage and compliance records.</p>
+                </div>
+            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
                 {/* Registration Form */}
-                <div className="glass-card p-6 lg:col-span-1 border-t-2 border-emerald-500/50">
-                    <h3 className="text-xl font-bold text-emerald-400 mb-6 border-b border-glassBorder pb-2">Generate Policy Data</h3>
+                <div className="glass-card p-6 lg:col-span-1 h-fit">
+                    <h3 className="text-lg font-semibold text-textMain mb-4">Record New Policy</h3>
                     <form className="space-y-4" onSubmit={handleSubmit}>
-                        <input type="text" placeholder="Policy Number" required
-                            className="neon-input focus:ring-emerald-500 focus:border-emerald-500" value={formData.policyNumber} onChange={e => setFormData({ ...formData, policyNumber: e.target.value })} />
-                        <input type="text" placeholder="Provider Network" required
-                            className="neon-input focus:ring-emerald-500 focus:border-emerald-500" value={formData.provider} onChange={e => setFormData({ ...formData, provider: e.target.value })} />
-
                         <div className="space-y-1">
-                            <label className="text-xs text-gray-400 ml-1">Valid From</label>
-                            <input type="date" required
-                                className="neon-input focus:ring-emerald-500 focus:border-emerald-500 text-gray-300" value={formData.validFrom} onChange={e => setFormData({ ...formData, validFrom: e.target.value })} />
+                            <label className="text-xs font-medium text-textMuted">Policy Number</label>
+                            <input type="text" placeholder="Policy ID" required
+                                className="neon-input" value={formData.policyNumber} onChange={e => setFormData({ ...formData, policyNumber: e.target.value })} />
+                        </div>
+                        <div className="space-y-1">
+                            <label className="text-xs font-medium text-textMuted">Provider Name</label>
+                            <input type="text" placeholder="Insurance Provider" required
+                                className="neon-input" value={formData.provider} onChange={e => setFormData({ ...formData, provider: e.target.value })} />
                         </div>
 
                         <div className="space-y-1">
-                            <label className="text-xs text-gray-400 ml-1">Valid Till</label>
+                            <label className="text-xs font-medium text-textMuted">Valid From Date</label>
                             <input type="date" required
-                                className="neon-input focus:ring-emerald-500 focus:border-emerald-500 text-gray-300" value={formData.validTill} onChange={e => setFormData({ ...formData, validTill: e.target.value })} />
+                                className="neon-input appearance-none" value={formData.validFrom} onChange={e => setFormData({ ...formData, validFrom: e.target.value })} />
                         </div>
 
-                        <select required
-                            className="neon-input focus:ring-emerald-500 focus:border-emerald-500 text-gray-300 bg-deepBlue" value={formData.coverageType} onChange={e => setFormData({ ...formData, coverageType: e.target.value })}>
-                            <option value="" disabled>Select Coverage Protocol</option>
-                            <option value="Comprehensive">Comprehensive Level Alpha</option>
-                            <option value="Third-Party">Third-Party Minimum</option>
-                            <option value="Collision">Collision Specific</option>
-                        </select>
+                        <div className="space-y-1">
+                            <label className="text-xs font-medium text-textMuted">Expiration Date</label>
+                            <input type="date" required
+                                className="neon-input appearance-none" value={formData.validTill} onChange={e => setFormData({ ...formData, validTill: e.target.value })} />
+                        </div>
 
-                        <button type="submit" className="w-full relative overflow-hidden bg-emerald-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:bg-opacity-90 active:scale-95 mt-4">
-                            SECURE CONTRACT
+                        <div className="space-y-1">
+                            <label className="text-xs font-medium text-textMuted">Coverage Tier</label>
+                            <select required
+                                className="neon-input" value={formData.coverageType} onChange={e => setFormData({ ...formData, coverageType: e.target.value })}>
+                                <option value="" disabled>Select Coverage Type</option>
+                                <option value="Comprehensive">Comprehensive</option>
+                                <option value="Third-Party">Third-Party Liability</option>
+                                <option value="Collision">Collision & Payload</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" className="neon-button w-full mt-6">
+                            Secure Policy Data
                         </button>
                     </form>
                 </div>
 
                 {/* Data Table */}
-                <div className="glass-card p-6 lg:col-span-2 overflow-x-auto">
-                    <h3 className="text-xl font-bold text-white mb-6">Active Security Policies</h3>
-                    <table className="w-full text-left border-collapse">
-                        <thead>
-                            <tr className="border-b border-glassBorder text-gray-400 text-sm">
-                                <th className="pb-3 px-4 font-medium tracking-wider">POLICY ID</th>
-                                <th className="pb-3 px-4 font-medium tracking-wider">PROVIDER</th>
-                                <th className="pb-3 px-4 font-medium tracking-wider">COVERAGE</th>
-                                <th className="pb-3 px-4 font-medium tracking-wider">EXPIRY DATE</th>
-                                <th className="pb-3 px-4 font-medium tracking-wider">STATUS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {insurances.map((ins, i) => {
-                                const isExpired = new Date(ins.validTill) < new Date();
-                                return (
-                                    <motion.tr
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: i * 0.05 }}
-                                        key={ins._id}
-                                        className="border-b border-glassBorder/30 hover:bg-glassBg/50 transition-colors"
-                                    >
-                                        <td className="py-4 px-4 text-emerald-400 font-mono text-sm">{ins.policyNumber}</td>
-                                        <td className="py-4 px-4 text-white font-semibold">{ins.provider}</td>
-                                        <td className="py-4 px-4 text-gray-400 text-sm">{ins.coverageType}</td>
-                                        <td className={`py-4 px-4 font-mono text-sm ${isExpired ? 'text-red-400' : 'text-gray-300'}`}>
-                                            {new Date(ins.validTill).toLocaleDateString()}
-                                        </td>
-                                        <td className="py-4 px-4">
-                                            <span className={`px-2 py-1 rounded text-xs font-bold ${!isExpired && ins.status === 'active' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}`}>
-                                                {!isExpired && ins.status === 'active' ? 'ACTIVE' : 'EXPIRED'}
-                                            </span>
-                                        </td>
-                                    </motion.tr>
-                                )
-                            })}
-                            {insurances.length === 0 && (
-                                <tr>
-                                    <td colSpan="5" className="py-8 text-center text-gray-500">No active policies found in matrix.</td>
+                <div className="glass-card lg:col-span-2 overflow-hidden flex flex-col">
+                    <div className="p-5 border-b border-cardBorder">
+                        <h3 className="text-lg font-semibold text-textMain">Active Policy Index</h3>
+                    </div>
+                    <div className="overflow-x-auto flex-1">
+                        <table className="w-full text-left">
+                            <thead className="bg-[#1F2937]">
+                                <tr className="text-textMuted text-xs uppercase tracking-wider">
+                                    <th className="py-3 px-6 font-medium">Policy ID</th>
+                                    <th className="py-3 px-6 font-medium">Provider & Term</th>
+                                    <th className="py-3 px-6 font-medium">Coverage</th>
+                                    <th className="py-3 px-6 font-medium text-center">Status</th>
                                 </tr>
-                            )}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="divide-y divide-cardBorder">
+                                {insurances.map((ins, i) => {
+                                    const isExpired = new Date(ins.validTill) < new Date();
+                                    return (
+                                        <motion.tr
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            transition={{ delay: i * 0.05 }}
+                                            key={ins._id}
+                                            className="hover:bg-[#1C2433] transition-colors"
+                                        >
+                                            <td className="py-4 px-6 whitespace-nowrap">
+                                                <span className="font-mono text-sm text-textMain font-medium">{ins.policyNumber}</span>
+                                            </td>
+                                            <td className="py-4 px-6 whitespace-nowrap text-sm">
+                                                <div className="flex flex-col">
+                                                    <span className="text-textMain font-medium">{ins.provider}</span>
+                                                    <span className={`text-xs mt-0.5 ${isExpired ? 'text-red-400' : 'text-textMuted'}`}>
+                                                        Exp: {new Date(ins.validTill).toLocaleDateString()}
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td className="py-4 px-6 text-sm text-textMuted">
+                                                <span className="bg-[#1F2937] px-2.5 py-1 rounded text-xs">{ins.coverageType}</span>
+                                            </td>
+                                            <td className="py-4 px-6 whitespace-nowrap text-center">
+                                                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${!isExpired && ins.status === 'active' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-red-500/10 text-red-500'}`}>
+                                                    {!isExpired && ins.status === 'active' ? 'Active' : 'Expired/Inactive'}
+                                                </span>
+                                            </td>
+                                        </motion.tr>
+                                    )
+                                })}
+                                {insurances.length === 0 && (
+                                    <tr>
+                                        <td colSpan="4" className="py-12 text-center text-textMuted">No policies recorded.</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
             </div>

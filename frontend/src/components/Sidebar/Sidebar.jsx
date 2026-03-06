@@ -4,51 +4,53 @@ import { LayoutDashboard, Car, Users, ShieldCheck, Link as LinkIcon, CheckCircle
 
 const Sidebar = () => {
     const navItems = [
-        { name: 'Dashboard', path: '/', icon: <LayoutDashboard size={20} /> },
-        { name: 'Vehicles', path: '/vehicles', icon: <Car size={20} /> },
-        { name: 'Owners', path: '/owners', icon: <Users size={20} /> },
-        { name: 'Insurance', path: '/insurance', icon: <ShieldCheck size={20} /> },
-        { name: 'Link Entities', path: '/link', icon: <LinkIcon size={20} /> },
-        { name: 'Verification Phase', path: '/verify', icon: <CheckCircle size={20} /> },
+        { name: 'Dashboard', path: '/', icon: <LayoutDashboard size={18} /> },
+        { name: 'Vehicles', path: '/vehicles', icon: <Car size={18} /> },
+        { name: 'Owners', path: '/owners', icon: <Users size={18} /> },
+        { name: 'Insurance', path: '/insurance', icon: <ShieldCheck size={18} /> },
+        { name: 'Entity Links', path: '/link', icon: <LinkIcon size={18} /> },
+        { name: 'Verification', path: '/verify', icon: <CheckCircle size={18} /> },
     ];
 
     return (
-        <aside className="w-64 h-full glass-card border-l-0 border-y-0 border-r-glassBorder/50 flex flex-col z-20">
-            <div className="p-6 flex items-center justify-center border-b border-glassBorder/30">
-                <h1 className="text-2xl font-black tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-neonCyan to-electricBlue filter drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]">
-                    VEHISECURE
+        <aside className="w-64 h-full bg-card border-r border-cardBorder flex flex-col z-20">
+            <div className="h-16 flex items-center px-6 border-b border-cardBorder">
+                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
+                    <ShieldCheck size={20} className="text-white" />
+                </div>
+                <h1 className="text-xl font-bold tracking-tight text-white">
+                    VehiSecure
                 </h1>
             </div>
 
-            <nav className="flex-1 px-4 py-8 space-y-2 overflow-y-auto">
+            <div className="px-4 py-3">
+                <p className="text-xs font-semibold text-textMuted uppercase tracking-wider mb-2 mt-4 ml-2">Main Menu</p>
+            </div>
+
+            <nav className="flex-1 px-3 space-y-1 overflow-y-auto">
                 {navItems.map((item) => (
                     <NavLink
                         key={item.path}
                         to={item.path}
                         className={({ isActive }) =>
-                            `flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-300 relative overflow-hidden group ${isActive
-                                ? 'bg-electricBlue/20 text-neonCyan shadow-[inset_0_0_10px_rgba(0,240,255,0.1)]'
-                                : 'text-gray-400 hover:text-white hover:bg-glassBg/50'
+                            `flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors text-sm font-medium ${isActive
+                                ? 'bg-primary/10 text-primary'
+                                : 'text-textMuted hover:text-textMain hover:bg-[#1F2937]'
                             }`
                         }
                     >
-                        {({ isActive }) => (
-                            <>
-                                {isActive && (
-                                    <span className="absolute left-0 top-0 bottom-0 w-1 bg-neonCyan shadow-[0_0_10px_#00F0FF] rounded-r-md"></span>
-                                )}
-                                <span className={`transition-transform duration-300 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`}>
-                                    {item.icon}
-                                </span>
-                                <span className="font-medium tracking-wide">{item.name}</span>
-                            </>
-                        )}
+                        {item.icon}
+                        <span>{item.name}</span>
                     </NavLink>
                 ))}
             </nav>
 
-            <div className="p-4 border-t border-glassBorder/30 text-xs text-center text-gray-500">
-                v1.0.0 Operator Access
+            <div className="p-4 border-t border-cardBorder flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-sm font-medium">A</div>
+                <div>
+                    <p className="text-sm font-medium text-textMain">Admin User</p>
+                    <p className="text-xs text-textMuted">admin@vehisecure.com</p>
+                </div>
             </div>
         </aside>
     );

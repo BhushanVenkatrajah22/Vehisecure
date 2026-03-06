@@ -34,75 +34,110 @@ const VehicleManagement = () => {
 
     return (
         <div className="space-y-6">
-            <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">Vehicle Matrix</h2>
+            <div className="flex justify-between items-center bg-card p-6 rounded-xl border border-cardBorder">
+                <div>
+                    <h2 className="text-2xl font-bold text-textMain tracking-tight">Vehicles</h2>
+                    <p className="text-textMuted text-sm mt-1">Manage all registered vehicles and assets.</p>
+                </div>
+                <button className="bg-primary hover:bg-primaryHover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm">
+                    Export Data
+                </button>
+            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
                 {/* Registration Form */}
-                <div className="glass-card p-6 lg:col-span-1">
-                    <h3 className="text-xl font-bold text-neonCyan mb-6 border-b border-glassBorder pb-2">Register Asset</h3>
+                <div className="glass-card p-6 lg:col-span-1 h-fit">
+                    <h3 className="text-lg font-semibold text-textMain mb-4">Register New Vehicle</h3>
                     <form className="space-y-4" onSubmit={handleSubmit}>
-                        <input type="text" placeholder="Internal Vehicle ID" required
-                            className="neon-input" value={formData.vehicleId} onChange={e => setFormData({ ...formData, vehicleId: e.target.value })} />
-                        <input type="text" placeholder="VIN Number" required
-                            className="neon-input" value={formData.VIN} onChange={e => setFormData({ ...formData, VIN: e.target.value })} />
-                        <input type="text" placeholder="License Plate" required
-                            className="neon-input" value={formData.licensePlate} onChange={e => setFormData({ ...formData, licensePlate: e.target.value })} />
-                        <div className="grid grid-cols-2 gap-4">
-                            <input type="text" placeholder="Manufacturer" required
-                                className="neon-input" value={formData.manufacturer} onChange={e => setFormData({ ...formData, manufacturer: e.target.value })} />
-                            <input type="text" placeholder="Model" required
-                                className="neon-input" value={formData.model} onChange={e => setFormData({ ...formData, model: e.target.value })} />
+                        <div className="space-y-1">
+                            <label className="text-xs font-medium text-textMuted">Internal ID</label>
+                            <input type="text" placeholder="e.g. VH-001" required
+                                className="neon-input" value={formData.vehicleId} onChange={e => setFormData({ ...formData, vehicleId: e.target.value })} />
                         </div>
-                        <input type="number" placeholder="Year" required
-                            className="neon-input" value={formData.year} onChange={e => setFormData({ ...formData, year: e.target.value })} />
+                        <div className="space-y-1">
+                            <label className="text-xs font-medium text-textMuted">VIN Number</label>
+                            <input type="text" placeholder="Enter full vehicle VIN" required
+                                className="neon-input" value={formData.VIN} onChange={e => setFormData({ ...formData, VIN: e.target.value })} />
+                        </div>
+                        <div className="space-y-1">
+                            <label className="text-xs font-medium text-textMuted">License Plate</label>
+                            <input type="text" placeholder="e.g. ABC 1234" required
+                                className="neon-input" value={formData.licensePlate} onChange={e => setFormData({ ...formData, licensePlate: e.target.value })} />
+                        </div>
 
-                        <button type="submit" className="neon-button w-full mt-4">
-                            ENGAGE REGISTRATION
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-1">
+                                <label className="text-xs font-medium text-textMuted">Make</label>
+                                <input type="text" placeholder="Make" required
+                                    className="neon-input" value={formData.manufacturer} onChange={e => setFormData({ ...formData, manufacturer: e.target.value })} />
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-xs font-medium text-textMuted">Model</label>
+                                <input type="text" placeholder="Model" required
+                                    className="neon-input" value={formData.model} onChange={e => setFormData({ ...formData, model: e.target.value })} />
+                            </div>
+                        </div>
+
+                        <div className="space-y-1">
+                            <label className="text-xs font-medium text-textMuted">Year</label>
+                            <input type="number" placeholder="YYYY" required
+                                className="neon-input" value={formData.year} onChange={e => setFormData({ ...formData, year: e.target.value })} />
+                        </div>
+
+                        <button type="submit" className="neon-button w-full mt-6">
+                            Register Asset
                         </button>
                     </form>
                 </div>
 
                 {/* Data Table */}
-                <div className="glass-card p-6 lg:col-span-2 overflow-x-auto">
-                    <h3 className="text-xl font-bold text-white mb-6">Registered Assets Log</h3>
-                    <table className="w-full text-left border-collapse">
-                        <thead>
-                            <tr className="border-b border-glassBorder text-gray-400 text-sm">
-                                <th className="pb-3 px-4 font-medium tracking-wider">ID</th>
-                                <th className="pb-3 px-4 font-medium tracking-wider">VIN</th>
-                                <th className="pb-3 px-4 font-medium tracking-wider">PLATE</th>
-                                <th className="pb-3 px-4 font-medium tracking-wider">MAKE / MODEL</th>
-                                <th className="pb-3 px-4 font-medium tracking-wider">STATUS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {vehicles.map((v, i) => (
-                                <motion.tr
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: i * 0.05 }}
-                                    key={v._id}
-                                    className="border-b border-glassBorder/30 hover:bg-glassBg/50 transition-colors"
-                                >
-                                    <td className="py-4 px-4 text-neonCyan font-mono text-sm">{v.vehicleId}</td>
-                                    <td className="py-4 px-4 text-gray-300 tracking-wider text-sm">{v.VIN}</td>
-                                    <td className="py-4 px-4 text-white font-semibold">{v.licensePlate}</td>
-                                    <td className="py-4 px-4 text-gray-400">{v.manufacturer} {v.model} ({v.year})</td>
-                                    <td className="py-4 px-4">
-                                        <span className={`px-2 py-1 rounded text-xs font-bold ${v.status === 'active' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}`}>
-                                            {v.status.toUpperCase()}
-                                        </span>
-                                    </td>
-                                </motion.tr>
-                            ))}
-                            {vehicles.length === 0 && (
-                                <tr>
-                                    <td colSpan="5" className="py-8 text-center text-gray-500">No assets detected in network.</td>
+                <div className="glass-card lg:col-span-2 overflow-hidden flex flex-col">
+                    <div className="p-5 border-b border-cardBorder flex justify-between items-center">
+                        <h3 className="text-lg font-semibold text-textMain">Vehicle Directory</h3>
+                    </div>
+
+                    <div className="overflow-x-auto flex-1">
+                        <table className="w-full text-left">
+                            <thead className="bg-[#1F2937]">
+                                <tr className="text-textMuted text-xs uppercase tracking-wider">
+                                    <th className="py-3 px-6 font-medium">ID</th>
+                                    <th className="py-3 px-6 font-medium">VIN</th>
+                                    <th className="py-3 px-6 font-medium">Plate</th>
+                                    <th className="py-3 px-6 font-medium">Make / Model</th>
+                                    <th className="py-3 px-6 font-medium text-center">Status</th>
                                 </tr>
-                            )}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="divide-y divide-cardBorder">
+                                {vehicles.map((v, i) => (
+                                    <motion.tr
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ delay: i * 0.05 }}
+                                        key={v._id}
+                                        className="hover:bg-[#1C2433] transition-colors group"
+                                    >
+                                        <td className="py-3.5 px-6 whitespace-nowrap">
+                                            <span className="text-xs font-medium text-textMuted bg-[#1F2937] px-2 py-1 rounded">{v.vehicleId}</span>
+                                        </td>
+                                        <td className="py-3.5 px-6 whitespace-nowrap text-sm text-textMuted">{v.VIN}</td>
+                                        <td className="py-3.5 px-6 whitespace-nowrap font-medium text-textMain">{v.licensePlate}</td>
+                                        <td className="py-3.5 px-6 whitespace-nowrap text-sm text-textMuted">{v.manufacturer} {v.model} <span className="text-xs ml-1 text-gray-500">({v.year})</span></td>
+                                        <td className="py-3.5 px-6 whitespace-nowrap text-center">
+                                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${v.status === 'active' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-red-500/10 text-red-500'}`}>
+                                                {v.status === 'active' ? 'Active' : 'Blocked'}
+                                            </span>
+                                        </td>
+                                    </motion.tr>
+                                ))}
+                                {vehicles.length === 0 && (
+                                    <tr>
+                                        <td colSpan="5" className="py-12 text-center text-textMuted">No vehicles registered yet.</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
             </div>
