@@ -12,25 +12,25 @@ import Verification from './pages/Verification/Verification';
 function App() {
   return (
     <BrowserRouter>
-      {/* Global Scanline Overlay */}
-      <div className="fixed inset-0 scanline-overlay pointer-events-none z-50"></div>
+      {/* Dynamic Vibrant Background Mesh */}
+      <div className="fixed inset-0 bg-mesh-pattern opacity-40 mix-blend-screen pointer-events-none z-0"></div>
 
-      <div className="flex h-screen overflow-hidden text-slate-200 font-sans relative">
-        <Sidebar className="w-64 flex-shrink-0" />
+      {/* Floating Animated Orbs for intense color */}
+      <div className="fixed top-[10%] left-[20%] w-96 h-96 bg-neonPink rounded-full blur-[120px] mix-blend-screen pointer-events-none animate-float-slow opacity-30 z-0"></div>
+      <div className="fixed bottom-[10%] right-[10%] w-[500px] h-[500px] bg-neonCyan rounded-full blur-[150px] mix-blend-screen pointer-events-none animate-float-fast opacity-30 z-0"></div>
+      <div className="fixed top-[40%] right-[40%] w-80 h-80 bg-neonYellow rounded-full blur-[100px] mix-blend-screen pointer-events-none animate-pulse-glow opacity-20 z-0"></div>
 
-        <div className="flex-1 flex flex-col overflow-hidden relative">
+      <div className="flex h-screen overflow-hidden relative z-10 p-4 gap-4">
+        {/* Sidebar wrapper for floating effect */}
+        <div className="w-72 flex-shrink-0 h-full">
+          <Sidebar />
+        </div>
 
-          {/* Animated Background Ambience */}
-          <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-cyberBlue/10 rounded-full blur-[150px] mix-blend-screen pointer-events-none animate-pulse-glow"></div>
-          <div className="absolute bottom-[-20%] left-[10%] w-[600px] h-[600px] bg-deepPurple/10 rounded-full blur-[180px] mix-blend-screen pointer-events-none animate-pulse-glow" style={{ animationDelay: '1.5s' }}></div>
-
+        <div className="flex-1 flex flex-col overflow-hidden gap-4">
           <Navbar />
 
-          <main className="flex-1 overflow-x-hidden overflow-y-auto p-8 relative z-10">
-            <div className="max-w-7xl mx-auto h-full relative">
-              {/* Decorative structural line */}
-              <div className="absolute -left-6 top-0 bottom-0 w-px bg-gradient-to-b from-cyberBlue/50 via-deepPurple/20 to-transparent"></div>
-
+          <main className="flex-1 overflow-x-hidden overflow-y-auto">
+            <div className="h-full pb-8">
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/vehicles" element={<VehicleManagement />} />

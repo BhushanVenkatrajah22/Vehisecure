@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldAlert, ShieldCheck, ScanLine } from 'lucide-react';
+import { ShieldAlert, ShieldCheck, View } from 'lucide-react';
 
 const Verification = () => {
     const [vehicleId, setVehicleId] = useState('');
@@ -13,75 +13,69 @@ const Verification = () => {
         setLoading(true);
         setResult(null);
 
-        // Dramatic verification effect delay
         setTimeout(async () => {
             try {
                 const res = await axios.post('http://localhost:5000/vehicle/verify', { vehicleId });
                 setResult(res.data);
             } catch (error) {
-                setResult({ status: 'Error', reason: error.response?.data?.message || 'CRITICAL FAILURE: NODE UNREACHABLE' });
+                setResult({ status: 'Error', reason: error.response?.data?.message || 'Access Denied: Missing Metadata' });
             } finally {
                 setLoading(false);
             }
-        }, 1500);
+        }, 1200);
     };
 
     return (
-        <div className="min-h-[80vh] flex flex-col items-center justify-center relative">
+        <div className="min-h-[80vh] flex flex-col items-center justify-center relative mt-4">
 
-            {/* Immersive glowing background behind the scanner */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-40 pointer-events-none">
-                <div className="w-[600px] h-[600px] bg-cyberBlue rounded-full blur-[200px] mix-blend-screen animate-pulse-glow"></div>
+            {/* Heavy Glowing Aura */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none opacity-40">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neonCyan via-neonPurple to-transparent rounded-full blur-[100px] mix-blend-screen animate-pulse-glow"></div>
             </div>
 
             <motion.div
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="cyber-panel w-full max-w-2xl p-10 relative z-10 overflow-hidden"
+                initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                className="vibrant-glass w-full max-w-2xl p-12 relative z-10 shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-white/20"
             >
-                {/* Scanner frame accents */}
-                <div className="absolute top-0 left-0 w-24 h-24 border-t-4 border-l-4 border-cyberBlue m-4 pointer-events-none opacity-80"></div>
-                <div className="absolute top-0 right-0 w-24 h-24 border-t-4 border-r-4 border-cyberBlue m-4 pointer-events-none opacity-80"></div>
-                <div className="absolute bottom-0 left-0 w-24 h-24 border-b-4 border-l-4 border-cyberBlue m-4 pointer-events-none opacity-80"></div>
-                <div className="absolute bottom-0 right-0 w-24 h-24 border-b-4 border-r-4 border-cyberBlue m-4 pointer-events-none opacity-80"></div>
-
-                <div className="text-center mb-10 mt-6 relative z-20">
-                    <div className="inline-flex justify-center items-center mb-6 relative">
-                        <div className="absolute inset-0 bg-cyberBlue blur-[20px] opacity-30 animate-pulse"></div>
-                        <ScanLine size={56} className="text-cyberBlue drop-shadow-glow-cyan" />
+                <div className="text-center mb-10 relative z-20">
+                    <div className="inline-flex justify-center items-center mb-6">
+                        <div className="p-4 rounded-3xl bg-gradient-to-br from-neonCyan to-neonPurple shadow-[0_0_30px_rgba(0,243,255,0.6)] animate-bounce">
+                            <View size={48} className="text-white" />
+                        </div>
                     </div>
-                    <h2 className="text-4xl font-black font-mono tracking-[0.3em] text-white">IDENTITY SCAN</h2>
-                    <p className="text-cyberBlue font-mono text-xs mt-3 tracking-[0.2em] animate-pulse">AWAITING TARGET INPUT VECTOR</p>
+                    <h2 className="text-5xl font-black font-display tracking-tight text-white mb-2">Deep Scan</h2>
+                    <p className="text-neonCyan font-bold text-lg">Cross-reference master database across all vectors.</p>
                 </div>
 
-                <form onSubmit={handleVerify} className="space-y-8 relative z-20 px-8">
+                <form onSubmit={handleVerify} className="space-y-8 relative z-20">
                     <div className="relative">
-                        {/* The input field representing the scanner target area */}
                         <input
                             type="text"
-                            placeholder="_ ENTER REGISTRY ID"
+                            placeholder="ENTER ASSET ID"
                             required
-                            className="w-full bg-slate-900/80 border-2 border-cyberBlue text-cyberBlue text-center text-3xl font-bold font-mono rounded-xl p-8 focus:outline-none focus:shadow-glow-cyan transition-all uppercase placeholder:text-cyberBlue/30 tracking-[0.2em]"
+                            className="w-full bg-black/40 border-2 border-white/20 text-white text-center text-4xl font-bold font-display rounded-3xl p-8 focus:outline-none focus:border-neonCyan focus:ring-4 focus:ring-neonCyan/30 transition-all uppercase placeholder:text-white/20 backdrop-blur-xl shadow-inner"
                             value={vehicleId}
                             onChange={e => setVehicleId(e.target.value)}
                         />
-                        {/* Horizontal scanline animating over the input */}
-                        <div className="absolute inset-x-0 h-1 bg-cyberBlue/50 shadow-glow-cyan animate-[scanline_2s_linear_infinite] pointer-events-none"></div>
                     </div>
 
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full relative overflow-hidden bg-transparent border-2 border-cyberBlue text-cyberBlue font-black font-mono tracking-[0.2em] py-5 px-6 rounded-xl transition-all duration-300 hover:bg-cyberBlue hover:text-black hover:shadow-glow-cyan disabled:border-slate-700 disabled:text-slate-500 disabled:bg-transparent disabled:cursor-not-allowed disabled:shadow-none group"
+                        className="w-full relative overflow-hidden bg-gradient-to-r from-neonCyan via-blue-500 to-neonPurple font-black font-display text-white text-xl py-6 px-6 rounded-3xl shadow-[0_0_30px_rgba(0,243,255,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(176,38,255,0.6)] disabled:from-slate-800 disabled:to-slate-800 disabled:text-slate-500 disabled:cursor-not-allowed disabled:shadow-none disabled:transform-none"
                     >
                         {loading ? (
-                            <span className="flex items-center justify-center gap-3 animate-pulse">
-                                <span className="w-4 h-4 rounded-full bg-cyberBlue inline-block animate-[ping_1s_cubic-bezier(0,0,0.2,1)_infinite]"></span>
-                                PROCESSING DATAFLOW...
+                            <span className="flex items-center justify-center gap-3">
+                                <svg className="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Executing Deep Scan...
                             </span>
                         ) : (
-                            <span className="relative z-10 flex items-center justify-center">
-                                [ INITIATE OVERRIDE SEQUENCE ]
+                            <span className="flex items-center justify-center">
+                                Initiate Scan Sequence
                             </span>
                         )}
                     </button>
@@ -90,60 +84,63 @@ const Verification = () => {
                 <AnimatePresence>
                     {result && (
                         <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="px-8"
+                            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                            className="mt-8 relative"
                         >
-                            <div className={`mt-10 rounded-xl p-6 relative overflow-hidden cyber-panel ${result.status === 'Authorized'
-                                    ? 'border-neonGreen bg-neonGreen/10 shadow-[0_0_30px_rgba(5,150,105,0.2)]'
-                                    : 'border-alertRed bg-alertRed/10 shadow-[0_0_30px_rgba(225,29,72,0.2)]'
+                            <div className={`rounded-3xl p-8 relative overflow-hidden backdrop-blur-2xl border-2 shadow-2xl ${result.status === 'Authorized'
+                                    ? 'border-neonCyan bg-neonCyan/10 shadow-[0_0_40px_rgba(0,243,255,0.3)]'
+                                    : 'border-neonPink bg-neonPink/10 shadow-[0_0_40px_rgba(255,0,127,0.3)]'
                                 }`}>
 
-                                {/* Result Background Pulse */}
-                                <div className={`absolute inset-0 ${result.status === 'Authorized' ? 'bg-neonGreen' : 'bg-alertRed'} opacity-10 blur-xl animate-pulse`}></div>
-
-                                <div className="flex items-start gap-6 relative z-10">
-                                    <div className="mt-1">
+                                <div className="flex flex-col md:flex-row items-center md:items-start gap-6 relative z-10 text-center md:text-left">
+                                    <div className="shrink-0">
                                         {result.status === 'Authorized' ? (
-                                            <ShieldCheck size={48} className="text-neonGreen drop-shadow-[0_0_10px_rgba(5,150,105,0.8)]" />
+                                            <div className="bg-neonCyan rounded-full p-4 shadow-[0_0_20px_rgba(0,243,255,0.8)]">
+                                                <ShieldCheck size={48} className="text-black" />
+                                            </div>
                                         ) : (
-                                            <ShieldAlert size={48} className="text-alertRed animate-pulse drop-shadow-[0_0_10px_rgba(225,29,72,0.8)]" />
+                                            <div className="bg-neonPink rounded-full p-4 shadow-[0_0_20px_rgba(255,0,127,0.8)] animate-pulse">
+                                                <ShieldAlert size={48} className="text-white" />
+                                            </div>
                                         )}
                                     </div>
 
                                     <div className="flex-1 w-full">
-                                        <h3 className={`text-2xl font-black font-mono tracking-widest ${result.status === 'Authorized' ? 'text-neonGreen' : 'text-alertRed'
+                                        <h3 className={`text-4xl font-black font-display tracking-tight mb-2 ${result.status === 'Authorized' ? 'text-neonCyan' : 'text-neonPink'
                                             }`}>
-                                            {result.status === 'Authorized' ? 'ACCESS GRANTED' : 'ACCESS DENIED'}
+                                            {result.status === 'Authorized' ? 'Access Granted' : 'Access Denied'}
                                         </h3>
 
                                         {result.status === 'Authorized' && result.data ? (
-                                            <div className="mt-4 space-y-4">
-                                                <div className="grid grid-cols-2 gap-4 border-t border-neonGreen/20 pt-4 text-xs font-mono">
-                                                    <div>
-                                                        <p className="text-neonGreen/60 tracking-widest mb-1">ASSET IDENTITY</p>
-                                                        <p className="text-white font-bold">{result.data.manufacturer.toUpperCase()} {result.data.model.toUpperCase()}</p>
-                                                        <p className="text-slate-400">VIN: {result.data.VIN}</p>
+                                            <div className="mt-6 space-y-4">
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                    <div className="bg-black/30 rounded-2xl p-4 border border-white/10">
+                                                        <p className="text-neonCyan font-bold text-xs uppercase tracking-widest mb-1">Asset Frame</p>
+                                                        <p className="text-white font-black text-xl">{result.data.manufacturer} {result.data.model}</p>
+                                                        <p className="text-white/50 text-sm mt-1">VIN: {result.data.VIN}</p>
                                                     </div>
-                                                    <div>
-                                                        <p className="text-neonGreen/60 tracking-widest mb-1">OWNER CLEARANCE</p>
-                                                        <p className="text-white font-bold">{result.data.owner?.name.toUpperCase()}</p>
-                                                        <p className="text-slate-400">ID: {result.data.owner?.ownerId}</p>
+                                                    <div className="bg-black/30 rounded-2xl p-4 border border-white/10">
+                                                        <p className="text-neonPurple font-bold text-xs uppercase tracking-widest mb-1">Owner Node</p>
+                                                        <p className="text-white font-black text-xl">{result.data.owner?.name}</p>
+                                                        <p className="text-white/50 text-sm mt-1">ID: {result.data.owner?.ownerId}</p>
                                                     </div>
                                                 </div>
-                                                <div className="bg-neonGreen/5 border border-neonGreen/20 p-3 rounded text-xs font-mono mt-4">
-                                                    <div className="flex justify-between border-b border-neonGreen/20 pb-2 mb-2">
-                                                        <span className="text-neonGreen">ACTIVE POLICY PROTOCOL</span>
-                                                        <span className="text-white font-bold tracking-widest">{result.data.insurance?.policyNumber}</span>
+                                                <div className="bg-gradient-to-r from-neonCyan/20 to-blue-500/20 border border-neonCyan/30 rounded-2xl p-4 flex justify-between items-center">
+                                                    <div>
+                                                        <span className="text-white/70 text-sm block mb-1 font-medium">Active Policy Link</span>
+                                                        <span className="text-white font-bold text-lg">{result.data.insurance?.provider}</span>
                                                     </div>
-                                                    <p className="text-slate-300">PROVIDER: {result.data.insurance?.provider.toUpperCase()}</p>
+                                                    <div className="text-right">
+                                                        <span className="px-3 py-1 bg-neonCyan text-black text-xs font-bold uppercase rounded-lg shadow-[0_0_10px_rgba(0,243,255,0.5)]">Secured</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         ) : (
-                                            <div className="mt-4 border-t border-alertRed/30 pt-4">
-                                                <p className="text-alertRed/70 font-mono text-sm tracking-widest mb-1">FATAL ERROR DIAGNOSTIC:</p>
-                                                <p className="text-white text-lg font-mono font-bold tracking-widest uppercase">{result.reason}</p>
+                                            <div className="mt-4 bg-black/30 rounded-2xl p-6 border border-neonPink/30">
+                                                <p className="text-white/70 text-sm font-medium mb-2 uppercase tracking-widest text-center md:text-left">Rejection Cause:</p>
+                                                <p className="text-white text-xl font-bold text-center md:text-left">{result.reason}</p>
                                             </div>
                                         )}
                                     </div>
