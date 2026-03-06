@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { LayoutDashboard, Car, Users, ShieldCheck, Link as LinkIcon, ScanFace, Sparkles } from 'lucide-react';
 
 const Sidebar = () => {
