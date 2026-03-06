@@ -4,17 +4,17 @@ import { motion } from 'framer-motion';
 import { Link2, Network } from 'lucide-react';
 
 const LinkManagement = () => {
-    const [vehicles, setVehicles] = useState([]);
-    const [owners, setOwners] = useState([]);
-    const [insurances, setInsurances] = useState([]);
+    const [vehicles,setVehicles] = useState([]);
+    const [owners,setOwners] = useState([]);
+    const [insurances,setInsurances] = useState([]);
 
-    const [ownerLinkData, setOwnerLinkData] = useState({ vehicleId: '', ownerObjectId: '' });
-    const [insuranceLinkData, setInsuranceLinkData] = useState({ vehicleId: '', insuranceObjectId: '' });
+    const [ownerLinkData,setOwnerLinkData] = useState({ vehicleId: '', ownerObjectId: '' });
+    const [insuranceLinkData,setInsuranceLinkData] = useState({ vehicleId: '', insuranceObjectId: '' });
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [vRes, oRes, iRes] = await Promise.all([
+                const [vRes,oRes,iRes] = await Promise.all([
                     axios.get('http://localhost:5000/vehicle/all'),
                     axios.get('http://localhost:5000/owner/all'),
                     axios.get('http://localhost:5000/insurance/all')

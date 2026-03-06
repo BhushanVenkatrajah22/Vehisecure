@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 import { ShieldPlus, ShieldAlert, FileKey } from 'lucide-react';
 
 const InsuranceManagement = () => {
-    const [insurances, setInsurances] = useState([]);
-    const [formData, setFormData] = useState({
+    const [insurances,setInsurances] = useState([]);
+    const [formData,setFormData] = useState({
         policyNumber: '', provider: '', validFrom: '', validTill: '', coverageType: ''
     });
 

@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 import { UserPlus, Users, BadgeCheck } from 'lucide-react';
 
 const OwnerManagement = () => {
-    const [owners, setOwners] = useState([]);
-    const [formData, setFormData] = useState({
+    const [owners,setOwners] = useState([]);
+    const [formData,setFormData] = useState({
         ownerId: '', name: '', email: '', phone: '', address: '', driverLicenseNumber: ''
     });
 

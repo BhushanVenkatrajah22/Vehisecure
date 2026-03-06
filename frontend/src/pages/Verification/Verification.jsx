@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldAlert, ShieldCheck, View } from 'lucide-react';
 
 const Verification = () => {
-    const [vehicleId, setVehicleId] = useState('');
-    const [result, setResult] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [vehicleId,setVehicleId] = useState('');
+    const [result,setResult] = useState(null);
+    const [loading,setLoading] = useState(false);
 
     const handleVerify = async (e) => {
         e.preventDefault();

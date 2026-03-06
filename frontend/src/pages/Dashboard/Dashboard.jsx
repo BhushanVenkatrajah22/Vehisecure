@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Database, Shield, Radio, ShieldAlert, Zap, TrendingUp } from 'lucide-react';
 
 const Dashboard = () => {
-    const [stats, setStats] = useState({
+    const [stats,setStats] = useState({
         totalVehicles: 0,
         totalOwners: 0,
         activeInsurance: 0,
@@ -102,7 +102,7 @@ const Dashboard = () => {
                         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-neonCyan/20 to-transparent rounded-b-3xl"></div>
 
                         <div className="flex items-end gap-4 h-48 justify-center w-full px-10 relative z-20">
-                            {[40, 70, 45, 90, 65, 85, 100, 60, 80, 50].map((height, i) => (
+                            {[40,70,45,90,65,85,100,60,80,50].map((height, i) => (
                                 <motion.div
                                     initial={{ height: 0 }}
                                     animate={{ height: `${height}%` }}

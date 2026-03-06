@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 import { Plus, Database, CarFront } from 'lucide-react';
 
 const VehicleManagement = () => {
-    const [vehicles, setVehicles] = useState([]);
-    const [formData, setFormData] = useState({
+    const [vehicles,setVehicles] = useState([]);
+    const [formData,setFormData] = useState({
         vehicleId: '', VIN: '', licensePlate: '', manufacturer: '', model: '', year: ''
     });
 

@@ -16,20 +16,20 @@
 
   /* Vibrant Glassmorphism Card */
   .vibrant-glass {
-    @apply bg-glassBg backdrop-blur-3xl border border-glassBorder rounded-3xl shadow-[0_8px_32px_0_rgba(0, 0, 0, 0.3)] transition-all duration-500 hover:border-glassHighlight hover:shadow-[0_8px_32px_0_rgba(255, 255, 255, 0.1)];
+    @apply bg-glassBg backdrop-blur-3xl border border-glassBorder rounded-3xl shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] transition-all duration-500 hover:border-glassHighlight hover:shadow-[0_8px_32px_0_rgba(255,255,255,0.1)];
   }
 
   /* Extremely Colorful Buttons */
   .btn-neon-pink {
-    @apply relative overflow-hidden bg-gradient-to-r from-neonPink to-neonPurple text-white font-bold py-3 px-8 rounded-2xl shadow-[0_0_20px_rgba(255, 0, 127, 0.5)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255, 0, 127, 0.8)] active:scale-95;
+    @apply relative overflow-hidden bg-gradient-to-r from-neonPink to-neonPurple text-white font-bold py-3 px-8 rounded-2xl shadow-[0_0_20px_rgba(255,0,127,0.5)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,0,127,0.8)] active:scale-95;
   }
 
   .btn-neon-cyan {
-    @apply relative overflow-hidden bg-gradient-to-r from-neonCyan to-blue-500 text-white font-bold py-3 px-8 rounded-2xl shadow-[0_0_20px_rgba(0, 243, 255, 0.5)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0, 243, 255, 0.8)] active:scale-95;
+    @apply relative overflow-hidden bg-gradient-to-r from-neonCyan to-blue-500 text-white font-bold py-3 px-8 rounded-2xl shadow-[0_0_20px_rgba(0,243,255,0.5)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,243,255,0.8)] active:scale-95;
   }
 
   .btn-neon-yellow {
-    @apply relative overflow-hidden bg-gradient-to-r from-neonYellow to-orange-500 text-black font-extrabold py-3 px-8 rounded-2xl shadow-[0_0_20px_rgba(251, 255, 0, 0.5)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(251, 255, 0, 0.8)] active:scale-95;
+    @apply relative overflow-hidden bg-gradient-to-r from-neonYellow to-orange-500 text-black font-extrabold py-3 px-8 rounded-2xl shadow-[0_0_20px_rgba(251,255,0,0.5)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(251,255,0,0.8)] active:scale-95;
   }
 
   /* Vibrant Inputs */
