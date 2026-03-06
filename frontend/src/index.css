@@ -1,43 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    @apply bg-background text-textMain font-sans antialiased;
+    @apply bg-darkBase text-slate-200 font-sans antialiased bg-grid-pattern min-h-screen selection:bg-cyberBlue selection:text-black;
   }
 }
 
 @layer components {
-  .glass-card {
-    @apply bg-card border border-cardBorder rounded-xl shadow-soft;
+  .cyber-panel {
+    @apply bg-panelBg backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-card relative overflow-hidden transition-all duration-300;
   }
 
-  .neon-button {
-    @apply flex justify-center items-center bg-primary text-white font-medium py-2.5 px-5 rounded-lg transition-colors duration-200 hover:bg-primaryHover active:scale-[0.98] shadow-sm;
+  .cyber-panel:hover {
+    @apply border-cyberBlue/40 shadow-[0_0_20px_rgba(0, 240, 255, 0.15)];
   }
 
-  .neon-input {
-    @apply w-full bg-[#1F2937] border border-gray-700 text-white rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm placeholder:text-gray-500;
+  .cyber-button {
+    @apply relative overflow-hidden bg-slate-800/80 border border-cyberBlue/50 text-cyberBlue font-bold py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-glow-cyan hover:bg-cyberBlue/10 hover:text-white active:scale-95;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
 
-  /* Custom scrollbar */
+  .cyber-input {
+    @apply w-full bg-slate-900/60 border border-slate-700/80 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-cyberBlue focus:ring-1 focus:ring-cyberBlue focus:shadow-[0_0_10px_rgba(0, 240, 255, 0.2)] transition-all placeholder:text-slate-500 font-mono text-sm;
+  }
+
+  /* Scanline overlay generator */
+  .scanline-overlay::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 50;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
+  /* Custom thin scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
   }
 
   ::-webkit-scrollbar-track {
-    background: transparent;
+    background: rgba(15, 23, 42, 0.2);
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-gray-700 rounded-full;
+    @apply bg-cyberBlue/50 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-600;
+    @apply bg-cyberBlue;
   }
 }

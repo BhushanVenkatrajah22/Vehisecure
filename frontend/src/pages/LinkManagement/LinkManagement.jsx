@@ -52,97 +52,116 @@ const LinkManagement = () => {
     };
 
     return (
-        <div className="space-y-8 max-w-5xl mx-auto">
-            <div className="text-center mb-10">
-                <h2 className="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-neonCyan to-electricBlue">Entity Liaison Protocol</h2>
-                <p className="text-gray-400 mt-2 tracking-widest text-sm">ESTABLISH SECURE CONNECTIONS BETWEEN DATA NODES</p>
+        <div className="space-y-8 max-w-5xl mx-auto mt-6">
+            <div className="text-center mb-12 relative">
+                <div className="absolute left-1/2 -ml-[250px] top-1/2 -mt-[50px] w-[500px] h-[100px] bg-cyberBlue/20 blur-[80px] rounded-full pointer-events-none -z-10 mix-blend-screen"></div>
+                <h2 className="text-4xl font-black font-mono tracking-[0.3em] text-cyberBlue drop-shadow-glow-cyan mb-2">ENTITY RELAY LIAISON</h2>
+                <p className="text-slate-400 font-mono text-xs tracking-[0.2em]">[ ESTABLISH SECURE DATALINKS BETWEEN TARGET NODES ]</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
 
                 {/* Link Owner */}
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="glass-card p-8 relative overflow-hidden group"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="cyber-panel overflow-hidden relative group"
                 >
-                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition-opacity">
-                        <Link2 size={100} className="text-purple-500" />
+                    {/* Holographic background */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-deepPurple/10 to-transparent z-0"></div>
+
+                    <div className="p-6 border-b border-deepPurple/30 bg-slate-900/60 flex items-center justify-between relative z-10">
+                        <h3 className="text-sm font-bold font-mono tracking-widest text-white flex items-center gap-3">
+                            <span className="w-1.5 h-6 bg-deepPurple shadow-glow-purple"></span>
+                            BIND_PERSONNEL
+                        </h3>
+                        <div className="flex gap-1">
+                            <span className="w-1 h-1 bg-deepPurple/50 rounded-full animate-ping"></span>
+                            <span className="w-1 h-1 bg-deepPurple/50 rounded-full animate-ping" style={{ animationDelay: '0.2s' }}></span>
+                            <span className="w-1 h-1 bg-deepPurple/50 rounded-full animate-ping" style={{ animationDelay: '0.4s' }}></span>
+                        </div>
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-6 relative z-10 flex items-center gap-3">
-                        <span className="w-2 h-8 bg-purple-500 rounded-full inline-block shadow-[0_0_10px_#a855f7]"></span>
-                        Bind Personnel to Asset
-                    </h3>
 
-                    <form className="space-y-6 relative z-10" onSubmit={handleLinkOwner}>
+                    <form className="p-8 space-y-6 relative z-10" onSubmit={handleLinkOwner}>
                         <div className="space-y-2">
-                            <label className="text-sm text-gray-400 font-mono">Select Target Asset (Vehicle)</label>
-                            <select required className="neon-input focus:ring-purple-500 focus:border-purple-500 bg-deepBlue"
+                            <label className="text-[10px] font-mono tracking-widest text-deepPurple">SELECT TARGET ASSET [VEHICLE]</label>
+                            <select required className="cyber-input appearance-none bg-slate-900/80 focus:border-deepPurple focus:ring-deepPurple"
                                 value={ownerLinkData.vehicleId} onChange={e => setOwnerLinkData({ ...ownerLinkData, vehicleId: e.target.value })}>
-                                <option value="" disabled>-- Select Vehicle --</option>
+                                <option value="" disabled>-- [ AWAITING INPUT ] --</option>
                                 {vehicles.map(v => (
-                                    <option key={v._id} value={v._id}>{v.vehicleId} - {v.licensePlate}</option>
+                                    <option key={v._id} value={v._id}>SYS: {v.vehicleId} // IDENT: {v.licensePlate}</option>
                                 ))}
                             </select>
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm text-gray-400 font-mono">Select Target Personnel (Owner)</label>
-                            <select required className="neon-input focus:ring-purple-500 focus:border-purple-500 bg-deepBlue"
+                            <label className="text-[10px] font-mono tracking-widest text-deepPurple">SELECT TARGET PERSONNEL [OWNER]</label>
+                            <select required className="cyber-input appearance-none bg-slate-900/80 focus:border-deepPurple focus:ring-deepPurple"
                                 value={ownerLinkData.ownerObjectId} onChange={e => setOwnerLinkData({ ...ownerLinkData, ownerObjectId: e.target.value })}>
-                                <option value="" disabled>-- Select Owner --</option>
+                                <option value="" disabled>-- [ AWAITING INPUT ] --</option>
                                 {owners.map(o => (
-                                    <option key={o._id} value={o._id}>{o.ownerId} - {o.name}</option>
+                                    <option key={o._id} value={o._id}>ID: {o.ownerId} // NAME: {o.name.toUpperCase()}</option>
                                 ))}
                             </select>
                         </div>
 
-                        <button type="submit" className="w-full relative overflow-hidden bg-purple-600 text-white font-bold py-4 px-6 rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(168,85,247,0.6)] hover:bg-opacity-90 active:scale-95 mt-4 tracking-widest">
-                            INITIALIZE BINDING
+                        <button type="submit" className="cyber-button w-full mt-6 !text-deepPurple !border-deepPurple/50 hover:!bg-deepPurple/20 hover:!text-white hover:!shadow-glow-purple group">
+                            <span className="flex items-center justify-center gap-3">
+                                <Link2 size={16} className="group-hover:rotate-45 transition-transform" />
+                                [ EXECUTE BINDING ]
+                            </span>
                         </button>
                     </form>
                 </motion.div>
 
                 {/* Link Insurance */}
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="glass-card p-8 relative overflow-hidden group"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="cyber-panel overflow-hidden relative group"
                 >
-                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition-opacity">
-                        <Link2 size={100} className="text-emerald-500" />
+                    {/* Holographic background */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-neonGreen/10 to-transparent z-0"></div>
+
+                    <div className="p-6 border-b border-neonGreen/30 bg-slate-900/60 flex items-center justify-between relative z-10">
+                        <h3 className="text-sm font-bold font-mono tracking-widest text-white flex items-center gap-3">
+                            <span className="w-1.5 h-6 bg-neonGreen shadow-[0_0_10px_rgba(5,150,105,0.8)]"></span>
+                            BIND_POLICY
+                        </h3>
+                        <div className="flex gap-1 border border-neonGreen/30 px-2 py-0.5 rounded text-[8px] font-mono text-neonGreen tracking-widest">
+                            <span className="animate-pulse">SECURE</span>
+                        </div>
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-6 relative z-10 flex items-center gap-3">
-                        <span className="w-2 h-8 bg-emerald-500 rounded-full inline-block shadow-[0_0_10px_#10b981]"></span>
-                        Bind Policy to Asset
-                    </h3>
 
-                    <form className="space-y-6 relative z-10" onSubmit={handleLinkInsurance}>
+                    <form className="p-8 space-y-6 relative z-10" onSubmit={handleLinkInsurance}>
                         <div className="space-y-2">
-                            <label className="text-sm text-gray-400 font-mono">Select Target Asset (Vehicle)</label>
-                            <select required className="neon-input focus:ring-emerald-500 focus:border-emerald-500 bg-deepBlue"
+                            <label className="text-[10px] font-mono tracking-widest text-neonGreen">SELECT TARGET ASSET [VEHICLE]</label>
+                            <select required className="cyber-input appearance-none bg-slate-900/80 focus:border-neonGreen focus:ring-neonGreen"
                                 value={insuranceLinkData.vehicleId} onChange={e => setInsuranceLinkData({ ...insuranceLinkData, vehicleId: e.target.value })}>
-                                <option value="" disabled>-- Select Vehicle --</option>
+                                <option value="" disabled>-- [ AWAITING INPUT ] --</option>
                                 {vehicles.map(v => (
-                                    <option key={v._id} value={v._id}>{v.vehicleId} - {v.licensePlate}</option>
+                                    <option key={v._id} value={v._id}>SYS: {v.vehicleId} // IDENT: {v.licensePlate}</option>
                                 ))}
                             </select>
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm text-gray-400 font-mono">Select Target Policy (Insurance)</label>
-                            <select required className="neon-input focus:ring-emerald-500 focus:border-emerald-500 bg-deepBlue"
+                            <label className="text-[10px] font-mono tracking-widest text-neonGreen">SELECT TARGET POLICY [INSURANCE]</label>
+                            <select required className="cyber-input appearance-none bg-slate-900/80 focus:border-neonGreen focus:ring-neonGreen"
                                 value={insuranceLinkData.insuranceObjectId} onChange={e => setInsuranceLinkData({ ...insuranceLinkData, insuranceObjectId: e.target.value })}>
-                                <option value="" disabled>-- Select Insurance --</option>
+                                <option value="" disabled>-- [ AWAITING INPUT ] --</option>
                                 {insurances.map(i => (
-                                    <option key={i._id} value={i._id}>{i.policyNumber} - {i.provider}</option>
+                                    <option key={i._id} value={i._id}>POL: {i.policyNumber} // TIER: {i.coverageType.toUpperCase()}</option>
                                 ))}
                             </select>
                         </div>
 
-                        <button type="submit" className="w-full relative overflow-hidden bg-emerald-600 text-white font-bold py-4 px-6 rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(16,185,129,0.6)] hover:bg-opacity-90 active:scale-95 mt-4 tracking-widest">
-                            INITIALIZE BINDING
+                        <button type="submit" className="cyber-button w-full mt-6 !text-neonGreen !border-neonGreen/50 hover:!bg-neonGreen/20 hover:!text-white hover:!shadow-[0_0_15px_rgba(5,150,105,0.5)] group">
+                            <span className="flex items-center justify-center gap-3">
+                                <Link2 size={16} className="group-hover:rotate-45 transition-transform" />
+                                [ EXECUTE BINDING ]
+                            </span>
                         </button>
                     </form>
                 </motion.div>

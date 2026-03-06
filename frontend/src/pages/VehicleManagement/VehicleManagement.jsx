@@ -34,105 +34,119 @@ const VehicleManagement = () => {
 
     return (
         <div className="space-y-6">
-            <div className="flex justify-between items-center bg-card p-6 rounded-xl border border-cardBorder">
+            <div className="flex justify-between items-center border-b border-cyberBlue/50 pb-4">
                 <div>
-                    <h2 className="text-2xl font-bold text-textMain tracking-tight">Vehicles</h2>
-                    <p className="text-textMuted text-sm mt-1">Manage all registered vehicles and assets.</p>
+                    <h2 className="text-2xl font-black font-mono tracking-[0.2em] text-cyberBlue drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]">ASSET DATABASE</h2>
+                    <p className="text-slate-400 font-mono text-xs mt-2 tracking-widest">VEHICLE CLASSIFICATION PROTOCOL</p>
                 </div>
-                <button className="bg-primary hover:bg-primaryHover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm">
-                    Export Data
-                </button>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
 
                 {/* Registration Form */}
-                <div className="glass-card p-6 lg:col-span-1 h-fit">
-                    <h3 className="text-lg font-semibold text-textMain mb-4">Register New Vehicle</h3>
-                    <form className="space-y-4" onSubmit={handleSubmit}>
-                        <div className="space-y-1">
-                            <label className="text-xs font-medium text-textMuted">Internal ID</label>
-                            <input type="text" placeholder="e.g. VH-001" required
-                                className="neon-input" value={formData.vehicleId} onChange={e => setFormData({ ...formData, vehicleId: e.target.value })} />
+                <div className="cyber-panel p-6 xl:col-span-1 h-fit relative">
+                    <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-cyberBlue/30 m-2 pointer-events-none"></div>
+                    <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-cyberBlue/30 m-2 pointer-events-none"></div>
+
+                    <h3 className="text-lg font-bold font-mono text-white mb-6 tracking-widest flex items-center gap-3">
+                        <span className="w-2 h-2 bg-cyberBlue animate-pulse"></span>
+                        INITIALIZE ASSET
+                    </h3>
+
+                    <form className="space-y-5" onSubmit={handleSubmit}>
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-mono tracking-widest text-cyberBlue">SYSTEM REGISTRY ID [REQUIRED]</label>
+                            <input type="text" placeholder="VH-XXXX" required
+                                className="cyber-input" value={formData.vehicleId} onChange={e => setFormData({ ...formData, vehicleId: e.target.value })} />
                         </div>
-                        <div className="space-y-1">
-                            <label className="text-xs font-medium text-textMuted">VIN Number</label>
-                            <input type="text" placeholder="Enter full vehicle VIN" required
-                                className="neon-input" value={formData.VIN} onChange={e => setFormData({ ...formData, VIN: e.target.value })} />
+
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-mono tracking-widest text-cyberBlue">VEHICLE IDENTIFICATION NUMBER [VIN]</label>
+                            <input type="text" placeholder="17-CHAR ALPHANUMERIC" required
+                                className="cyber-input uppercase" value={formData.VIN} onChange={e => setFormData({ ...formData, VIN: e.target.value })} />
                         </div>
-                        <div className="space-y-1">
-                            <label className="text-xs font-medium text-textMuted">License Plate</label>
-                            <input type="text" placeholder="e.g. ABC 1234" required
-                                className="neon-input" value={formData.licensePlate} onChange={e => setFormData({ ...formData, licensePlate: e.target.value })} />
+
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-mono tracking-widest text-cyberBlue">LICENSE DESIGNATION</label>
+                            <input type="text" placeholder="PLATE DATA" required
+                                className="cyber-input uppercase" value={formData.licensePlate} onChange={e => setFormData({ ...formData, licensePlate: e.target.value })} />
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-1">
-                                <label className="text-xs font-medium text-textMuted">Make</label>
-                                <input type="text" placeholder="Make" required
-                                    className="neon-input" value={formData.manufacturer} onChange={e => setFormData({ ...formData, manufacturer: e.target.value })} />
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-mono tracking-widest text-cyberBlue">MANUFACTURER</label>
+                                <input type="text" placeholder="CORP." required
+                                    className="cyber-input" value={formData.manufacturer} onChange={e => setFormData({ ...formData, manufacturer: e.target.value })} />
                             </div>
-                            <div className="space-y-1">
-                                <label className="text-xs font-medium text-textMuted">Model</label>
-                                <input type="text" placeholder="Model" required
-                                    className="neon-input" value={formData.model} onChange={e => setFormData({ ...formData, model: e.target.value })} />
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-mono tracking-widest text-cyberBlue">MODEL</label>
+                                <input type="text" placeholder="BUILD" required
+                                    className="cyber-input" value={formData.model} onChange={e => setFormData({ ...formData, model: e.target.value })} />
                             </div>
                         </div>
 
-                        <div className="space-y-1">
-                            <label className="text-xs font-medium text-textMuted">Year</label>
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-mono tracking-widest text-cyberBlue">MANUFACTURE YEAR CYCLE</label>
                             <input type="number" placeholder="YYYY" required
-                                className="neon-input" value={formData.year} onChange={e => setFormData({ ...formData, year: e.target.value })} />
+                                className="cyber-input" value={formData.year} onChange={e => setFormData({ ...formData, year: e.target.value })} />
                         </div>
 
-                        <button type="submit" className="neon-button w-full mt-6">
-                            Register Asset
+                        <button type="submit" className="cyber-button w-full mt-8">
+                            [ REGISTER_ENTITY ]
                         </button>
                     </form>
                 </div>
 
                 {/* Data Table */}
-                <div className="glass-card lg:col-span-2 overflow-hidden flex flex-col">
-                    <div className="p-5 border-b border-cardBorder flex justify-between items-center">
-                        <h3 className="text-lg font-semibold text-textMain">Vehicle Directory</h3>
+                <div className="cyber-panel xl:col-span-2 overflow-hidden flex flex-col relative">
+                    <div className="absolute top-0 right-0 h-full w-[2px] bg-gradient-to-b from-cyberBlue/10 via-cyberBlue/30 to-cyberBlue/10"></div>
+
+                    <div className="p-5 border-b border-slate-700/50 bg-slate-900/60 flex justify-between items-center">
+                        <h3 className="text-sm font-bold font-mono tracking-widest text-white">ASSET_INDEX_LATEST</h3>
+                        <div className="text-[10px] font-mono text-neonGreen flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-neonGreen animate-pulse"></span>
+                            LIVE SYNC
+                        </div>
                     </div>
 
-                    <div className="overflow-x-auto flex-1">
-                        <table className="w-full text-left">
-                            <thead className="bg-[#1F2937]">
-                                <tr className="text-textMuted text-xs uppercase tracking-wider">
-                                    <th className="py-3 px-6 font-medium">ID</th>
-                                    <th className="py-3 px-6 font-medium">VIN</th>
-                                    <th className="py-3 px-6 font-medium">Plate</th>
-                                    <th className="py-3 px-6 font-medium">Make / Model</th>
-                                    <th className="py-3 px-6 font-medium text-center">Status</th>
+                    <div className="overflow-x-auto flex-1 p-1">
+                        <table className="w-full text-left font-mono">
+                            <thead>
+                                <tr className="text-cyberBlue/80 text-[10px] uppercase tracking-widest border-b border-slate-800">
+                                    <th className="py-4 px-4 font-normal">SYS_ID</th>
+                                    <th className="py-4 px-4 font-normal">SERIAL / VIN</th>
+                                    <th className="py-4 px-4 font-normal">IDENT</th>
+                                    <th className="py-4 px-4 font-normal">BUILD</th>
+                                    <th className="py-4 px-4 font-normal text-center">NET_STAT</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-cardBorder">
+                            <tbody className="divide-y divide-slate-800/60">
                                 {vehicles.map((v, i) => (
                                     <motion.tr
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
+                                        initial={{ opacity: 0, x: -10 }}
+                                        animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: i * 0.05 }}
                                         key={v._id}
-                                        className="hover:bg-[#1C2433] transition-colors group"
+                                        className="hover:bg-cyberBlue/5 transition-colors group"
                                     >
-                                        <td className="py-3.5 px-6 whitespace-nowrap">
-                                            <span className="text-xs font-medium text-textMuted bg-[#1F2937] px-2 py-1 rounded">{v.vehicleId}</span>
+                                        <td className="py-4 px-4 whitespace-nowrap">
+                                            <span className="text-xs text-cyberBlue drop-shadow-[0_0_5px_rgba(0,240,255,0.5)]">{v.vehicleId}</span>
                                         </td>
-                                        <td className="py-3.5 px-6 whitespace-nowrap text-sm text-textMuted">{v.VIN}</td>
-                                        <td className="py-3.5 px-6 whitespace-nowrap font-medium text-textMain">{v.licensePlate}</td>
-                                        <td className="py-3.5 px-6 whitespace-nowrap text-sm text-textMuted">{v.manufacturer} {v.model} <span className="text-xs ml-1 text-gray-500">({v.year})</span></td>
-                                        <td className="py-3.5 px-6 whitespace-nowrap text-center">
-                                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${v.status === 'active' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-red-500/10 text-red-500'}`}>
-                                                {v.status === 'active' ? 'Active' : 'Blocked'}
+                                        <td className="py-4 px-4 whitespace-nowrap text-[11px] text-slate-400 font-mono tracking-wider">{v.VIN}</td>
+                                        <td className="py-4 px-4 whitespace-nowrap font-bold text-white tracking-widest">{v.licensePlate}</td>
+                                        <td className="py-4 px-4 whitespace-nowrap text-xs text-slate-300">{v.manufacturer.toUpperCase()} {v.model.toUpperCase()} <span className="text-[10px] ml-1 text-cyberBlue/50">[{v.year}]</span></td>
+                                        <td className="py-4 px-4 whitespace-nowrap text-center">
+                                            <span className={`inline-flex items-center px-2 py-1 border text-[10px] tracking-widest ${v.status === 'active' ? 'border-neonGreen/50 text-neonGreen bg-neonGreen/10 shadow-[0_0_10px_rgba(5,150,105,0.2)]' : 'border-alertRed/50 text-alertRed bg-alertRed/10 shadow-[0_0_10px_rgba(225,29,72,0.2)]'}`}>
+                                                {v.status === 'active' ? 'ONLINE' : 'BLOCKED'}
                                             </span>
                                         </td>
                                     </motion.tr>
                                 ))}
                                 {vehicles.length === 0 && (
                                     <tr>
-                                        <td colSpan="5" className="py-12 text-center text-textMuted">No vehicles registered yet.</td>
+                                        <td colSpan="5" className="py-16 text-center text-slate-500 font-mono text-sm tracking-widest">
+                                            NO_ASSETS_FOUND
+                                        </td>
                                     </tr>
                                 )}
                             </tbody>

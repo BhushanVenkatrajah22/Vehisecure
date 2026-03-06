@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldAlert, ShieldCheck, Fingerprint, Loader2 } from 'lucide-react';
+import { ShieldAlert, ShieldCheck, ScanLine } from 'lucide-react';
 
 const Verification = () => {
     const [vehicleId, setVehicleId] = useState('');
@@ -13,13 +13,13 @@ const Verification = () => {
         setLoading(true);
         setResult(null);
 
-        // Simulate a slight network delay for dramatic validation effect
+        // Dramatic verification effect delay
         setTimeout(async () => {
             try {
                 const res = await axios.post('http://localhost:5000/vehicle/verify', { vehicleId });
                 setResult(res.data);
             } catch (error) {
-                setResult({ status: 'Error', reason: error.response?.data?.message || 'Verification execution failure' });
+                setResult({ status: 'Error', reason: error.response?.data?.message || 'CRITICAL FAILURE: NODE UNREACHABLE' });
             } finally {
                 setLoading(false);
             }
@@ -27,104 +27,128 @@ const Verification = () => {
     };
 
     return (
-        <div className="min-h-[80vh] flex flex-col items-center justify-center py-10 relative">
+        <div className="min-h-[80vh] flex flex-col items-center justify-center relative">
 
-            {/* Immersive background glow */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none">
-                <div className="w-[500px] h-[500px] bg-electricBlue rounded-full blur-[150px] mix-blend-screen animate-pulse-slow"></div>
+            {/* Immersive glowing background behind the scanner */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-40 pointer-events-none">
+                <div className="w-[600px] h-[600px] bg-cyberBlue rounded-full blur-[200px] mix-blend-screen animate-pulse-glow"></div>
             </div>
 
             <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
+                initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="glass-card w-full max-w-2xl p-10 relative z-10 shadow-[0_0_50px_rgba(0,82,255,0.15)] overflow-hidden"
+                className="cyber-panel w-full max-w-2xl p-10 relative z-10 overflow-hidden"
             >
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-neonCyan via-electricBlue to-purple-500"></div>
+                {/* Scanner frame accents */}
+                <div className="absolute top-0 left-0 w-24 h-24 border-t-4 border-l-4 border-cyberBlue m-4 pointer-events-none opacity-80"></div>
+                <div className="absolute top-0 right-0 w-24 h-24 border-t-4 border-r-4 border-cyberBlue m-4 pointer-events-none opacity-80"></div>
+                <div className="absolute bottom-0 left-0 w-24 h-24 border-b-4 border-l-4 border-cyberBlue m-4 pointer-events-none opacity-80"></div>
+                <div className="absolute bottom-0 right-0 w-24 h-24 border-b-4 border-r-4 border-cyberBlue m-4 pointer-events-none opacity-80"></div>
 
-                <div className="text-center mb-10">
-                    <div className="inline-flex justify-center items-center p-4 rounded-full bg-deepBlue shadow-[0_0_20px_rgba(0,240,255,0.3)] mb-6 border border-glassBorder/50">
-                        <Fingerprint size={48} className="text-neonCyan animate-pulse" />
+                <div className="text-center mb-10 mt-6 relative z-20">
+                    <div className="inline-flex justify-center items-center mb-6 relative">
+                        <div className="absolute inset-0 bg-cyberBlue blur-[20px] opacity-30 animate-pulse"></div>
+                        <ScanLine size={56} className="text-cyberBlue drop-shadow-glow-cyan" />
                     </div>
-                    <h2 className="text-4xl font-black tracking-[0.2em] text-white">IDENTITY VERIFICATION</h2>
-                    <p className="text-neonCyan mt-3 font-mono text-sm tracking-widest">AWAITING TARGET DESIGNATION</p>
+                    <h2 className="text-4xl font-black font-mono tracking-[0.3em] text-white">IDENTITY SCAN</h2>
+                    <p className="text-cyberBlue font-mono text-xs mt-3 tracking-[0.2em] animate-pulse">AWAITING TARGET INPUT VECTOR</p>
                 </div>
 
-                <form onSubmit={handleVerify} className="space-y-6">
+                <form onSubmit={handleVerify} className="space-y-8 relative z-20 px-8">
                     <div className="relative">
+                        {/* The input field representing the scanner target area */}
                         <input
                             type="text"
-                            placeholder="ENTER VEHICLE ID (e.g., VH-001)"
+                            placeholder="_ ENTER REGISTRY ID"
                             required
-                            className="w-full bg-darkBg/80 border-2 border-electricBlue/50 text-white text-center text-xl tracking-[0.3em] font-mono rounded-xl p-6 focus:outline-none focus:border-neonCyan focus:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all uppercase placeholder:text-gray-600"
+                            className="w-full bg-slate-900/80 border-2 border-cyberBlue text-cyberBlue text-center text-3xl font-bold font-mono rounded-xl p-8 focus:outline-none focus:shadow-glow-cyan transition-all uppercase placeholder:text-cyberBlue/30 tracking-[0.2em]"
                             value={vehicleId}
                             onChange={e => setVehicleId(e.target.value)}
                         />
-                        {/* Corner tech accents */}
-                        <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-neonCyan m-2 pointer-events-none"></div>
-                        <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-neonCyan m-2 pointer-events-none"></div>
+                        {/* Horizontal scanline animating over the input */}
+                        <div className="absolute inset-x-0 h-1 bg-cyberBlue/50 shadow-glow-cyan animate-[scanline_2s_linear_infinite] pointer-events-none"></div>
                     </div>
 
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full relative overflow-hidden bg-transparent border border-neonCyan text-neonCyan font-black tracking-[0.2em] py-5 px-6 rounded-xl transition-all duration-300 hover:bg-neonCyan hover:text-black hover:shadow-[0_0_30px_rgba(0,240,255,0.6)] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed group"
+                        className="w-full relative overflow-hidden bg-transparent border-2 border-cyberBlue text-cyberBlue font-black font-mono tracking-[0.2em] py-5 px-6 rounded-xl transition-all duration-300 hover:bg-cyberBlue hover:text-black hover:shadow-glow-cyan disabled:border-slate-700 disabled:text-slate-500 disabled:bg-transparent disabled:cursor-not-allowed disabled:shadow-none group"
                     >
                         {loading ? (
-                            <span className="flex items-center justify-center gap-3">
-                                <Loader2 size={24} className="animate-spin" />
-                                EXECUTING SCAN...
+                            <span className="flex items-center justify-center gap-3 animate-pulse">
+                                <span className="w-4 h-4 rounded-full bg-cyberBlue inline-block animate-[ping_1s_cubic-bezier(0,0,0.2,1)_infinite]"></span>
+                                PROCESSING DATAFLOW...
                             </span>
                         ) : (
-                            <span className="relative z-10 flex items-center justify-center gap-3">
-                                INITIATE VERIFICATION
+                            <span className="relative z-10 flex items-center justify-center">
+                                [ INITIATE OVERRIDE SEQUENCE ]
                             </span>
                         )}
-                        <div className="absolute inset-0 h-full w-full bg-neonCyan opacity-0 group-hover:opacity-10 transition-opacity"></div>
                     </button>
                 </form>
 
                 <AnimatePresence>
                     {result && (
                         <motion.div
-                            initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                            animate={{ opacity: 1, height: 'auto', marginTop: 32 }}
-                            exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                            className={`rounded-xl p-6 border-2 relative overflow-hidden ${result.status === 'Authorized'
-                                    ? 'bg-emerald-900/20 border-emerald-500 shadow-[0_0_30px_rgba(16,185,129,0.3)]'
-                                    : 'bg-red-900/20 border-red-500 shadow-[0_0_30px_rgba(239,68,68,0.3)]'
-                                }`}
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="px-8"
                         >
-                            <div className="flex items-start gap-4 z-10 relative">
-                                {result.status === 'Authorized' ? (
-                                    <ShieldCheck size={40} className="text-emerald-400 mt-1 flex-shrink-0" />
-                                ) : (
-                                    <ShieldAlert size={40} className="text-red-400 mt-1 flex-shrink-0 animate-pulse" />
-                                )}
+                            <div className={`mt-10 rounded-xl p-6 relative overflow-hidden cyber-panel ${result.status === 'Authorized'
+                                    ? 'border-neonGreen bg-neonGreen/10 shadow-[0_0_30px_rgba(5,150,105,0.2)]'
+                                    : 'border-alertRed bg-alertRed/10 shadow-[0_0_30px_rgba(225,29,72,0.2)]'
+                                }`}>
 
-                                <div>
-                                    <h3 className={`text-2xl font-black tracking-widest ${result.status === 'Authorized' ? 'text-emerald-400' : 'text-red-500'
-                                        }`}>
-                                        {result.status === 'Authorized' ? 'ACCESS GRANTED' : 'ACCESS DENIED'}
-                                    </h3>
+                                {/* Result Background Pulse */}
+                                <div className={`absolute inset-0 ${result.status === 'Authorized' ? 'bg-neonGreen' : 'bg-alertRed'} opacity-10 blur-xl animate-pulse`}></div>
 
-                                    {result.status === 'Authorized' ? (
-                                        <div className="mt-4 space-y-2 text-gray-300 font-mono text-sm border-t border-emerald-500/30 pt-4">
-                                            <p className="text-emerald-300 mb-2">TARGET VERIFIED SECURE</p>
-                                            <p>OWNER: <span className="text-white">{result.data.owner?.name}</span></p>
-                                            <p>INSURANCE: <span className="text-white">{result.data.insurance?.provider} (ACTIVE)</span></p>
-                                            <p>VEHICLE: <span className="text-white">{result.data.manufacturer} {result.data.model}</span></p>
-                                        </div>
-                                    ) : (
-                                        <div className="mt-4 border-t border-red-500/30 pt-4">
-                                            <p className="text-red-300 font-mono text-sm">REASON CODE:</p>
-                                            <p className="text-white mt-1 font-semibold">{result.reason}</p>
-                                        </div>
-                                    )}
+                                <div className="flex items-start gap-6 relative z-10">
+                                    <div className="mt-1">
+                                        {result.status === 'Authorized' ? (
+                                            <ShieldCheck size={48} className="text-neonGreen drop-shadow-[0_0_10px_rgba(5,150,105,0.8)]" />
+                                        ) : (
+                                            <ShieldAlert size={48} className="text-alertRed animate-pulse drop-shadow-[0_0_10px_rgba(225,29,72,0.8)]" />
+                                        )}
+                                    </div>
+
+                                    <div className="flex-1 w-full">
+                                        <h3 className={`text-2xl font-black font-mono tracking-widest ${result.status === 'Authorized' ? 'text-neonGreen' : 'text-alertRed'
+                                            }`}>
+                                            {result.status === 'Authorized' ? 'ACCESS GRANTED' : 'ACCESS DENIED'}
+                                        </h3>
+
+                                        {result.status === 'Authorized' && result.data ? (
+                                            <div className="mt-4 space-y-4">
+                                                <div className="grid grid-cols-2 gap-4 border-t border-neonGreen/20 pt-4 text-xs font-mono">
+                                                    <div>
+                                                        <p className="text-neonGreen/60 tracking-widest mb-1">ASSET IDENTITY</p>
+                                                        <p className="text-white font-bold">{result.data.manufacturer.toUpperCase()} {result.data.model.toUpperCase()}</p>
+                                                        <p className="text-slate-400">VIN: {result.data.VIN}</p>
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-neonGreen/60 tracking-widest mb-1">OWNER CLEARANCE</p>
+                                                        <p className="text-white font-bold">{result.data.owner?.name.toUpperCase()}</p>
+                                                        <p className="text-slate-400">ID: {result.data.owner?.ownerId}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="bg-neonGreen/5 border border-neonGreen/20 p-3 rounded text-xs font-mono mt-4">
+                                                    <div className="flex justify-between border-b border-neonGreen/20 pb-2 mb-2">
+                                                        <span className="text-neonGreen">ACTIVE POLICY PROTOCOL</span>
+                                                        <span className="text-white font-bold tracking-widest">{result.data.insurance?.policyNumber}</span>
+                                                    </div>
+                                                    <p className="text-slate-300">PROVIDER: {result.data.insurance?.provider.toUpperCase()}</p>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <div className="mt-4 border-t border-alertRed/30 pt-4">
+                                                <p className="text-alertRed/70 font-mono text-sm tracking-widest mb-1">FATAL ERROR DIAGNOSTIC:</p>
+                                                <p className="text-white text-lg font-mono font-bold tracking-widest uppercase">{result.reason}</p>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
-
-                            {/* Scanline effect for dramatic tech feel */}
-                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent h-[10px] w-full animate-[scan_2s_ease-in-out_infinite]"></div>
                         </motion.div>
                     )}
                 </AnimatePresence>
